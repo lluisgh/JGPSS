@@ -1,0 +1,15 @@
+*
+* DemoSeize
+* Demo de seizes
+*
+
+
+*
+* Main
+*
+     Generate        1.0,0.0,0.0,0.0,0.0,0     ;<<--comment-->>
+     Advance         1.0,0.0     ;<<--comment-->>
+     Seize           1     ;<<--comment-->>
+     Advance         1.0,0.0     ;<<--comment-->>
+     Release         1     ;<<--comment-->>
+     Terminate       1     ;<<--comment-->>

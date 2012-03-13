@@ -1,0 +1,12 @@
+*
+* Museu
+* Exemple d'un museu
+*
+
+
+*
+* Arribades
+*
+        Generate        1.0,0.0,-1.0,0.0,0.0,0     ;<<--comment-->>
+demo    Advance         0.5,0.0     ;<<--comment-->>
+        Terminate       1     ;<<--comment-->>
