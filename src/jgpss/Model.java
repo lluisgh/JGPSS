@@ -215,6 +215,7 @@ public class Model implements Serializable {
                 CEC.add(i++, (Xact) FEC.get(0));
                 
             }
+            FEC.remove(0);
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
@@ -234,6 +235,26 @@ public class Model implements Serializable {
         Xact xact;
         //Motor central de simulaciÛ.
         if (TC > 0) {
+             while (!CEC.isEmpty()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+                xact = (Xact) CEC.get(0); //Agafem la primera
+                CEC.remove(0); 
+                //Moure aquesta xact el maxim que es pugui
+                while (xact.getBloc().execute(xact) != null) {
+                }
+                if (TC <= 0) break;
+            }
+            xact = (Xact) FEC.get(0);
+            relativeClock = xact.getMoveTime();
+            int i = 0;
+            CEC.add(i, xact);
+            ++i;
+            FEC.remove(0);
+            while (((Xact) FEC.get(0)).getMoveTime() == relativeClock) {
+                CEC.add(i++, (Xact) FEC.get(0));
+                
+            }
+            FEC.remove(0);
+        }
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
