@@ -213,9 +213,9 @@ public class Model implements Serializable {
             FEC.remove(0);
             while (((Xact) FEC.get(0)).getMoveTime() == relativeClock) {
                 CEC.add(i++, (Xact) FEC.get(0));
+                FEC.remove(0);
                 
             }
-            FEC.remove(0);
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
@@ -251,10 +251,8 @@ public class Model implements Serializable {
             FEC.remove(0);
             while (((Xact) FEC.get(0)).getMoveTime() == relativeClock) {
                 CEC.add(i++, (Xact) FEC.get(0));
-                
+                FEC.remove(0);
             }
-            FEC.remove(0);
-        }
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
