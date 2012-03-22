@@ -41,6 +41,8 @@ public class Model implements Serializable {
     //Future and Current Event List.
     private ArrayList CEC;
     private ArrayList FEC;
+    //array amb els servidors
+    private ArrayList servers;
     /**
      * The transaction counter.
      */
@@ -71,6 +73,7 @@ public class Model implements Serializable {
         this.setStorages(new ArrayList());
         CEC=new ArrayList();
         FEC=new ArrayList();
+        servers = new ArrayList();
     }
 
     /**
@@ -137,6 +140,22 @@ public class Model implements Serializable {
         this.DescripModel = DescripModel;
     }
 
+    /**
+     * To obtain the array list containing the SERVERS.
+     * @return the arraylist.
+     */
+    public ArrayList getServers() {
+        return servers;
+    }
+
+    /**
+     * To set the array list containing the SERVERS.
+     * @param servers the new arraylist.
+     */
+    public void setServers(ArrayList servers) {
+        this.servers = servers;
+    }
+    
     /**
      * To obtain the array list containing the STORAGES.
      * @return the arraylist.
