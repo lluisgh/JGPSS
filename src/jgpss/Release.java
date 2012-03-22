@@ -59,4 +59,17 @@ public class Release extends Bloc{
         this.A = A;
     }
     
+     @Override
+     public Bloc execute(Xact tr) {
+         int i;
+         for (i = 0; i < getModel().getServers().size(); ++i) {
+             Server ser = (Server) getModel().getServers().get(i);
+             if (ser.getNom().equals(A)){
+                 ser.setOcupat(0);
+                 getModel().getServers().set(i, ser);
+                 break;
+             }
+         }
+         return nextBloc(tr);
+     }
 }
