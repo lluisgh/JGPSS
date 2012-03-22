@@ -3,3 +3,7 @@ Pel tema de les Xact bloquejades s'ha de diferenciar les Xact bloquejades de la 
 La CEC i la FEC s'han de fer amb cues de prioritat.
 
 Les coses que són "generals" van al model, per exemple lo dels servers, les queues també hi aniran segurament.
+
+Falta fer que llanci una excepció si algu passa per un Depart sense haver passat abans per una Queue.
+
+Fer el tema de les Cues i els Servidors fer-ho amb un map en comptes d'una ArrayList.
