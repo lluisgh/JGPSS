@@ -59,4 +59,10 @@ public class Terminate extends Bloc {
         this.A = A;
     }
     
+    @Override
+    public Bloc execute(Xact tr) {
+        getModel().TC -= A;
+        return null;
+    }
+    
 }
