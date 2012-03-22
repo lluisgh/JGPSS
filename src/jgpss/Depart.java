@@ -77,4 +77,18 @@ public class Depart extends Bloc{
         this.B = B;
     }
     
+    
+     @Override
+     public Bloc execute(Xact tr) {
+         int i;
+         for (i = 0; i < getModel().getCues().size(); ++i) {
+             Cua cu = (Cua) getModel().getCues().get(i);
+             if (cu.getNom().equals(A)){
+                 cu.setNElem(cu.getNElem() - B);
+                 getModel().getCues().set(i, cu);
+                 break;
+             }
+         }
+         return nextBloc(tr);
+     }
 }
