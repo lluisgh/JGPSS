@@ -40,6 +40,27 @@ public class Xact implements Serializable{
     private float moveTime;
     //Prioritat
     private float priority;
+    //Enter que indica si esta bloquejada esperant un servidor (1 vol dir que s’, 0 altrament)
+    private int blocked;
+
+    /**
+     * To obtain if the Xact is blocked
+     * @return 1 if it's blocked
+     */
+    
+    public int getBlocked() {
+        return blocked;
+    }
+
+    /**
+     * To set the blocked status of the Xact
+     * @param blocked The new blocked status
+     */
+    
+    public void setBlocked(int blocked) {
+        this.blocked = blocked;
+    }
+    
 
     /**
      * To obtain the indentifier of the XACT.

@@ -235,11 +235,15 @@ public class Model implements Serializable {
         //Simulation engine loop.
         while (TC > 0) {
             //SCAN PHASE
-            while (!CEC.isEmpty()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+            int i = 0;
+            while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
                 xact = (Xact) CEC.get(0); //Agafem la primera
                 CEC.remove(0); 
                 //Moure aquesta xact el maxim que es pugui
                 while (xact.getBloc().execute(xact) != null) {
+                }
+                if (xact.getBlocked() == 1) {
+                    ++i;
                 }
                 if (TC <= 0) {
                     System.out.println("TC igual o menys de 0");
@@ -250,7 +254,6 @@ public class Model implements Serializable {
             if (acaba == 0) {
                 xact = (Xact) FEC.get(0);
                 relativeClock = xact.getMoveTime();
-                int i = 0;
                 CEC.add(i, xact);
                 ++i;
                 FEC.remove(0);
@@ -280,11 +283,15 @@ public class Model implements Serializable {
         //Motor central de simulaciÛ.
         int acaba = 0;
         if (TC > 0) {
-             while (!CEC.isEmpty()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+            int i = 0;
+             while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
                 xact = (Xact) CEC.get(0); //Agafem la primera
                 CEC.remove(0); 
                 //Moure aquesta xact el maxim que es pugui
                 while (xact.getBloc().execute(xact) != null) {
+                }
+                if (xact.getBlocked() == 1) {
+                    ++i;
                 }
                 if (TC <= 0) {
                     System.out.println("TC igual o menys de 0");
@@ -295,7 +302,6 @@ public class Model implements Serializable {
             if (acaba == 0) {
                 xact = (Xact) FEC.get(0);
                 relativeClock = xact.getMoveTime();
-                int i = 0;
                 CEC.add(i, xact);
                 ++i;
                 FEC.remove(0);

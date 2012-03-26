@@ -86,7 +86,7 @@ public class Seize extends Bloc {
                  return nextBloc(tr);
              }
              else { //Falta fer quan el servidor esta ocupat... Ni idea
-                 
+                 tr.setBlocked(1);
              }
          }
          return null;
