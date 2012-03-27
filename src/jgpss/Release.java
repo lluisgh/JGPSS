@@ -67,7 +67,7 @@ public class Release extends Bloc{
              if (ser.getNom().equals(A)){
                  ser.setOcupat(0);
                  getModel().getServers().set(i, ser);
-                 tr.setBlocked(0);
+                 tr.setBlocked(false);
                  break;
              }
          }

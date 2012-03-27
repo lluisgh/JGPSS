@@ -242,7 +242,7 @@ public class Model implements Serializable {
                 //Moure aquesta xact el maxim que es pugui
                 while (xact.getBloc().execute(xact) != null) {
                 }
-                if (xact.getBlocked() == 1) {
+                if (xact.getBlocked()) {
                     ++i;
                 }
                 if (TC <= 0) {
@@ -290,7 +290,7 @@ public class Model implements Serializable {
                 //Moure aquesta xact el maxim que es pugui
                 while (xact.getBloc().execute(xact) != null) {
                 }
-                if (xact.getBlocked() == 1) {
+                if (xact.getBlocked()) {
                     ++i;
                 }
                 if (TC <= 0) {

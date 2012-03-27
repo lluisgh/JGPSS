@@ -33,8 +33,8 @@ public class Enter extends Bloc {
     /** Creates a new instance of Enter
      * @param comentari the comment of the block.
      * @param label the block label.
-     * @param B the name of the storage.
-     * @param A the number of instances needed.
+     * @param A the name of the storage.
+     * @param B the number of instances needed.
      */
      public Enter(String comentari, String label, String A, int B) {
         
@@ -75,6 +75,22 @@ public class Enter extends Bloc {
      */
     public void setB(int B) {
         this.B = B;
+    }
+    
+    public Bloc execute(Xact tr) {
+        if (getModel().getStorages().containsKey(A)) {
+            Storage s = (Storage) getModel().getStorages().get(A);
+            if (s.getLliures() >= B) {
+                s.setLliures(s.getLliures() - B);
+                s.getOcupants().put(tr.getID(), B);
+            }
+            else {
+                tr.setBlocked(true);
+            }
+            //else throw new Exception("No hi ha suficients instˆncies lliures.");
+        }
+        //else throw new Exception("No existeix cap Storage de nom " + A + ".")
+        return nextBloc(tr);
     }
     
 }

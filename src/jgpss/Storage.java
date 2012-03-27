@@ -34,8 +34,8 @@ public class Storage {
     private String nom;
     private int valor;
     
-    private int lliures;
-    private Map ocupants;
+    private int lliures; //Nombre d'instˆncies lliures de l'Storage.
+    private Map ocupants; //Map de parelles <Xact.id, num> que guarda quines transaccions, amb quantes instˆncies, ocupen l'Storage. 
     /** Creates a new instance of Storage */
     public Storage() {
     }

@@ -79,4 +79,9 @@ public class Leave extends Bloc{
         this.B = B;
     }
     
+    public Bloc execute(Xact tr) {
+        
+        return nextBloc(tr);
+    }
+    
 }

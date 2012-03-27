@@ -41,14 +41,14 @@ public class Xact implements Serializable{
     //Prioritat
     private float priority;
     //Enter que indica si esta bloquejada esperant un servidor (1 vol dir que s’, 0 altrament)
-    private int blocked;
+    private Boolean blocked;
 
     /**
      * To obtain if the Xact is blocked
      * @return 1 if it's blocked
      */
     
-    public int getBlocked() {
+    public Boolean getBlocked() {
         return blocked;
     }
 
@@ -57,7 +57,7 @@ public class Xact implements Serializable{
      * @param blocked The new blocked status
      */
     
-    public void setBlocked(int blocked) {
+    public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
     
