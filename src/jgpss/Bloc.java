@@ -159,7 +159,7 @@ public class Bloc{
      * @return return NULL if no more blocs can be executed now. The next block
      * otherwise.
      */
-    public Bloc execute(Xact tr){
+    public Bloc execute(Xact tr) throws Exception {
         return null;
     }
 
