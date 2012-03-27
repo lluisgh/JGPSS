@@ -36,8 +36,8 @@ public class Model implements Serializable {
     //private int id;
     //array of processes. Contains process objects
     private ArrayList proces;
-    //array containing the storages.
-    private ArrayList storages;
+    //map containing the storages.
+    private Map storages;
     //Future and Current Event List.
     private ArrayList CEC;
     private ArrayList FEC;
@@ -72,7 +72,7 @@ public class Model implements Serializable {
     Model() {
         //inicialitzem a una array buida ja que no tenim encara processos
         this.setProces(new ArrayList());
-        this.setStorages(new ArrayList());
+        this.setStorages(new HashMap());
         CEC=new ArrayList();
         FEC=new ArrayList();
         servers = new ArrayList();
@@ -175,18 +175,18 @@ public class Model implements Serializable {
     }
     
     /**
-     * To obtain the array list containing the STORAGES.
-     * @return the arraylist.
+     * To obtain the map containing the STORAGES.
+     * @return the map.
      */
-    public ArrayList getStorages() {
+    public Map getStorages() {
         return storages;
     }
 
     /**
-     * To set the array list containing the STORAGES.
-     * @param storages the new arraylist.
+     * To set the map containing the STORAGES.
+     * @param storages the new map.
      */
-    public void setStorages(ArrayList storages) {
+    public void setStorages(Map storages) {
         this.storages = storages;
     }
 
