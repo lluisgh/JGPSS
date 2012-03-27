@@ -19,6 +19,9 @@
 
 package jgpss;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A class representing the STORAGES definitions.
  * @author Pau Fonseca i Casas
@@ -30,6 +33,9 @@ public class Storage {
     
     private String nom;
     private int valor;
+    
+    private int lliures;
+    private Map ocupants;
     /** Creates a new instance of Storage */
     public Storage() {
     }
@@ -41,6 +47,8 @@ public class Storage {
     public Storage(String nom, int valor){
         this.nom=nom;
         this.valor=valor;
+        this.lliures=valor;
+        this.ocupants = new HashMap();
     }
 
     /**
@@ -73,6 +81,22 @@ public class Storage {
      */
     public void setValor(int valor) {
         this.valor = valor;
+    }
+
+    public int getLliures() {
+        return lliures;
+    }
+
+    public void setLliures(int lliures) {
+        this.lliures = lliures;
+    }
+
+    public Map getOcupants() {
+        return ocupants;
+    }
+
+    public void setOcupants(Map ocupants) {
+        this.ocupants = ocupants;
     }
     
 }
