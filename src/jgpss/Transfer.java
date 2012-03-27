@@ -19,6 +19,8 @@
 
 package jgpss;
 
+import java.util.ArrayList;
+
 /**
  * A class representing the TRANSFER block.
  * @author Pau Fonseca i Casas
@@ -159,4 +161,17 @@ public class Transfer extends Bloc{
         this.D = D;
     }
     
+    @Override
+    public Bloc execute(Xact tr) throws Exception {
+        if (A.equals(SNA)) {
+            ArrayList<Bloc> blocs = getProces().getBlocs();
+            for (Bloc b : blocs) {
+                if (b.getLabel().equals(B)) {
+                    tr.setBloc(b);
+                    return b;
+                }
+            }
+        }
+        throw new Exception("No existeix cap bloc amb l'etiqueta " + B + ".");
+    }
 }
