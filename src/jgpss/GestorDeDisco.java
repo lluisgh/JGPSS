@@ -133,7 +133,7 @@ public class GestorDeDisco
    
        //escrriure els storages
        textModel.append(Constants.saltoLinea);
-       ArrayList storages= model.getStorages();
+       Map storages= model.getStorages();
        Storage st;
        for(int j=0;j<storages.size();j++){
            st=(Storage)storages.get(j);
@@ -552,7 +552,7 @@ public class GestorDeDisco
         Model m = new Model();
         setGPSSmodel(m);
         ArrayList p = new ArrayList();
-        ArrayList storages = new ArrayList();
+        Map storages = new HashMap();
         ArrayList blocs;
         String nomModel = "";
         String descModel = "";
@@ -628,7 +628,7 @@ public class GestorDeDisco
                                 } else {
                                     String vStorage[] = s.split(Constants.espacio);
                                     //el primer es el nom de l'storage i el tercer el valor
-                                    storages.add(new Storage(vStorage[0], new Integer(vStorage[2]).intValue()));
+                                    storages.put(vStorage[0], new Storage(vStorage[0], new Integer(vStorage[2]).intValue()));
 
 
                                 }
