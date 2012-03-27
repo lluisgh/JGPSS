@@ -175,7 +175,7 @@ public class PantallaStorages extends javax.swing.JDialog {
         try{
             if(!existeixStorage((String)comboStorages.getSelectedItem())){
                storageAux=new Storage((String)comboStorages.getSelectedItem(),new Integer(TextValor.getText()).intValue());
-            VarGlobals.model.getStorages().add(storageAux);
+            VarGlobals.model.getStorages().put(storageAux.getNom(), storageAux);
             botoOK.setEnabled(true);
             rellenarCombo();
             }
@@ -229,12 +229,12 @@ private void generarPantallaError(String mensage){
      }
     }     
     
-    private Vector agafarNomsStorages(ArrayList vStorages){
+    private Vector agafarNomsStorages(Map mStorages){
         Vector Resultados= new Vector();
         Storage st;
         Resultados.add("");
-        for(int i=0;i<vStorages.size();i++){
-            st = (Storage) vStorages.get(i);
+        for(int i=0;i<mStorages.size();i++){
+            st = (Storage) mStorages.get(i);
             Resultados.add(st.getNom());
         }
         return Resultados;
