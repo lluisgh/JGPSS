@@ -19,6 +19,8 @@
 
 package jgpss;
 
+import java.util.Map;
+
 /**
  * A class representing the ENTER block.
  * @author Pau Fonseca i Casas
@@ -77,20 +79,22 @@ public class Enter extends Bloc {
         this.B = B;
     }
     
-    public Bloc execute(Xact tr) {
+    @Override
+    public Bloc execute(Xact tr) throws Exception {
         if (getModel().getStorages().containsKey(A)) {
             Storage s = (Storage) getModel().getStorages().get(A);
             if (s.getLliures() >= B) {
                 s.setLliures(s.getLliures() - B);
-                s.getOcupants().put(tr.getID(), B);
+                Map o = s.getOcupants();
+                if (o.containsKey(tr.getID())) o.put(tr.getID(), o.get(tr.getID() + B));
+                else s.getOcupants().put(tr.getID(), B);
             }
             else {
                 tr.setBlocked(true);
+                return null;
             }
-            //else throw new Exception("No hi ha suficients instˆncies lliures.");
         }
-        //else throw new Exception("No existeix cap Storage de nom " + A + ".")
-        return nextBloc(tr);
+        throw new Exception("No existeix cap Storage de nom " + A + ".");
     }
     
 }
