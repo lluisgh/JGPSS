@@ -19,8 +19,10 @@
 
 package jgpss;
 
+import java.util.Map;
+
 /**
- * A class representing the GENERATE block.
+ * A class representing the LEAVE block.
  * @author Pau Fonseca i Casas
  * @version 1
  * @see     <a href="http://www-eio.upc.es/~Pau/index.php?q=node/28">Project website</a>
@@ -79,8 +81,19 @@ public class Leave extends Bloc{
         this.B = B;
     }
     
-    public Bloc execute(Xact tr) {
-        
+    @Override
+    public Bloc execute(Xact tr) throws Exception {
+        if (getModel().getStorages().containsKey(A)) {
+            Storage s = (Storage) getModel().getStorages().get(A);
+            Map o = s.getOcupants();
+            Integer auxID = tr.getID();
+            if (o.containsKey(auxID)) {
+                Integer ocs = (Integer) o.get(auxID);
+                if (ocs >= B) o.put(tr.getID(), ocs - B);
+                else throw new Exception("No hi ha " + B + "instˆncies del servidor capturades per la transacci— actual.");
+            }
+            else throw new Exception("La transacci— actual no ha capturat cap instˆncia del servidor.");
+        }
         return nextBloc(tr);
     }
     
