@@ -81,6 +81,10 @@ public class Queue extends Bloc{
     
     @Override
      public Bloc execute(Xact tr) {
+        if (getModel().getCues().containsKey(A)) {
+            Cua cu = (Cua) getModel().getCues().get(A);
+            cu.setNElem((cu.getNElem()+ B));
+        }
          Boolean trobat = false;
          int i;
          int pos = 0;
