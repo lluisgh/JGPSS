@@ -43,7 +43,11 @@ public class GNA {
      */
     public float Uniform(float A, float B) {
         java.util.Random rnd=new java.util.Random();
-        return rnd.nextFloat();
+        Float result =  rnd.nextFloat();
+        result *= B*2;
+        result -= B/2;
+        result += A;
+        return result;
     }
 
 }
