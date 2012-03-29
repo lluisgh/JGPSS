@@ -79,14 +79,14 @@ public class Depart extends Bloc{
     
     
      @Override
-     public Bloc execute(Xact tr) {
-         int i;
-         for (i = 0; i < getModel().getCues().size(); ++i) {
-             Cua cu = (Cua) getModel().getCues().get(i);
-             if (cu.getNom().equals(A)){
+     public Bloc execute(Xact tr) throws Exception {
+         if (getModel().getCues().containsKey(A)) {
+             Cua cu = (Cua) getModel().getCues().get(A);
+             if ((cu.getNElem() - B) < 0) {
+                 throw new Exception("No hi ha prous elements a la cua amb nom " + A + '.');
+             }
+             else {
                  cu.setNElem(cu.getNElem() - B);
-                 getModel().getCues().set(i, cu);
-                 break;
              }
          }
          return nextBloc(tr);

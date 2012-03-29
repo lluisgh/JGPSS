@@ -83,30 +83,13 @@ public class Queue extends Bloc{
      public Bloc execute(Xact tr) {
         if (getModel().getCues().containsKey(A)) {
             Cua cu = (Cua) getModel().getCues().get(A);
-            cu.setNElem((cu.getNElem()+ B));
+            cu.setNElem((cu.getNElem() + B));
         }
-         Boolean trobat = false;
-         int i;
-         int pos = 0;
-         for (i = 0; (i < getModel().getCues().size()) && !trobat; ++i) {
-             Cua cu = (Cua) getModel().getCues().get(i);
-             if (cu.getNom().equals(A)){
-                 trobat = true;
-                 pos = i;
-             }
-         }
-         if (!trobat) { //La cua Žs nova, la creem amb nElem = B
-             Cua cu = new Cua(A, B);
-             getModel().getCues().add(cu);
-         }
-         else { //La cua existeix
-             Cua cu = (Cua) getModel().getCues().get(pos);
-             
-             cu.setNElem(cu.getNElem() + B);
-             getModel().getServers().set(pos, cu);
-         }
-         //la Xact que ha entrat al Queue continua al segŸent bloc
-         return nextBloc(tr);
-     }
+        else {
+            Cua cu = new Cua(A, B);
+            getModel().getCues().put(A, cu);
+        }
+        return nextBloc(tr);
+    }
     
 }
