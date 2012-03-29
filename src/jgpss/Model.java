@@ -242,57 +242,59 @@ public class Model implements Serializable {
      * i posar-ho tan a executeAll com a executeStep.
      */
     
+private void execute() {
+            //TODO 1: First XACT.
+            //TODO 2: Move the XACT as far as we can.
+            //TODO 3: Look for other NOW XACT.
+            //TODO 4: CLOCK UPDATE PHASE
+            //TODO 5: Move the Xacts of the FEC to the CEC.
+            //TODO 6: Goto TODO 1.
+    
+    boolean excepcio = false;
+    Xact xact;    
+    while (!CEC.isEmpty() && TC > 0) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+        xact = CEC.poll(); //Agafem la primera
+        try {
+            //Moure aquesta xact el maxim que es pugui
+            while (xact.getBloc().execute(xact) != null);
+        } catch (Exception ex) {
+            excepcio = true;
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!excepcio && xact.getBlocked()) {
+            //TODO canviar això per posar a la blocked etc
+        }
+        
+        
+/*        if (TC <= 0) {
+            System.out.println("TC igual o menys de 0");
+            acaba = true;
+            break;
+        }
+         * 
+         */
+    }
+    if (TC <= 0) {
+        xact = FEC.poll();
+        relativeClock = xact.getMoveTime();
+        CEC.add(xact);
+        while ((!FEC.isEmpty() && ((Xact) FEC.poll()).getMoveTime() == relativeClock)) {
+            CEC.add(FEC.poll());
+        }
+    }
+
+    else {
+        System.out.println("TC igual o menys de 0");
+    }
+}
+    
     /**
      * To execute the simulation model.
      */
     void executeAll() {
-        Xact xact;
-        Boolean acaba = false;
         //Simulation engine loop.
-        while (TC > 0) {
-            //SCAN PHASE
-            int i = 0;
-            boolean excepcio = false;
-            while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
-                xact = (Xact) CEC.get(i); //Agafem la primera
-                CEC.remove(i); 
-                try {
-                    //Moure aquesta xact el maxim que es pugui
-                    while (xact.getBloc().execute(xact) != null);
-                } catch (Exception ex) {
-                    excepcio = true;
-                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (!excepcio && xact.getBlocked()) {
-                    ++i;
-                }
-                if (TC <= 0) {
-                    System.out.println("TC igual o menys de 0");
-                    acaba = true;
-                    break;
-                }
-            }
-            if (!acaba) {
-                xact = (Xact) FEC.get(0);
-                relativeClock = xact.getMoveTime();
-                CEC.add(i, xact);
-                ++i;
-                FEC.remove(0);
-                while ((!FEC.isEmpty() && ((Xact) FEC.get(0)).getMoveTime() == relativeClock)) {
-                    CEC.add(i++, (Xact) FEC.get(0));
-                    FEC.remove(0);
-
-                }
-                //TODO 1: First XACT.
-                //TODO 2: Move the XACT as far as we can.
-                //TODO 3: Look for other NOW XACT.
-                //TODO 4: CLOCK UPDATE PHASE
-                //TODO 5: Move the Xacts of the FEC to the CEC.
-                //TODO 6: Goto TODO 1.
-            }
-        }
-        System.out.println("END");
-        
+        while (TC > 0) execute();
+        System.out.println("END");        
     }
 
     /**
@@ -301,51 +303,6 @@ public class Model implements Serializable {
      */
     @SuppressWarnings("empty-statement")
     void executeStep() {
-        Xact xact;
-        //Motor central de simulaciÛ.
-        Boolean acaba = false;
-        if (TC > 0) {
-            int i = 0;
-            boolean excepcio = false;
-            while (!CEC.isEmpty()) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
-                xact = CEC.poll(); //Agafem la primera
-                try {
-                    //Moure aquesta xact el maxim que es pugui
-                    while (xact.getBloc().execute(xact) != null);
-                } catch (Exception ex) {
-                    excepcio = true;
-                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (!excepcio && xact.getBlocked()) {
-                    ++i; //TODO canviar això per posar a la blocked etc
-                }
-                if (TC <= 0) {
-                    System.out.println("TC igual o menys de 0");
-                    acaba = true;
-                    break;
-                }
-            }
-            if (!acaba) {
-                xact = FEC.poll();
-                relativeClock = xact.getMoveTime();
-                CEC.add(i, xact);
-                ++i;
-                FEC.remove(0);
-                while ((!FEC.isEmpty() && ((Xact) FEC.get(0)).getMoveTime() == relativeClock)) {
-                    CEC.add(i++, (Xact) FEC.get(0));
-                    FEC.remove(0);
-
-                }
-                //TODO 1: First XACT.
-                //TODO 2: Move the XACT as far as we can.
-                //TODO 3: Look for other NOW XACT.
-                //TODO 4: CLOCK UPDATE PHASE
-                //TODO 5: Move the Xacts of the FEC to the CEC.
-                //TODO 6: Goto TODO 1.
-            }
-        } 
-        else {
-            System.out.println("TC igual o menys de 0");
-        }
+       if (TC > 0) execute();
     }
 }
