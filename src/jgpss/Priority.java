@@ -63,4 +63,9 @@ public class Priority extends Bloc{
         this.A = A;
     }
     
+    @Override
+    public Bloc execute(Xact tr) {
+        tr.setPriority(A);      //Se li assigna la nova prioritat al bloc.
+        return nextBloc(tr);    //Es retorna el següent bloc.
+    }
 }
