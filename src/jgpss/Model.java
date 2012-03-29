@@ -235,7 +235,9 @@ public class Model implements Serializable {
         else executeStep();
     }
 
-    
+private void passarBECaCEC() {
+    while (!BEC.isEmpty()) CEC.add(BEC.poll());
+}
     
     
     /* Aqu’ el que s'ha de fer Žs transformar la transparncia 138 (que farˆ servir les dues segŸents a jgpss
@@ -257,7 +259,7 @@ private void executeGeneric() throws Exception {
         while (xact.getBloc().execute(xact) != null); //Moure aquesta xact el maxim que es pugui
         if (xact.getBlocked()) {
             
-            
+            BEC.add(xact);
             //TODO canviar aix˜ per posar a la blocked etc
         
         
@@ -282,7 +284,10 @@ private void executeGeneric() throws Exception {
      */
     void executeAll() throws Exception {
         //Simulation engine loop.
-        while (TC > 0) executeGeneric();
+        while (TC > 0) {
+            passarBECaCEC();
+            executeGeneric();
+        }
         System.out.println("END");        
     }
 
@@ -292,6 +297,9 @@ private void executeGeneric() throws Exception {
      */
     @SuppressWarnings("empty-statement")
     void executeStep() throws Exception {
-       if (TC > 0) executeGeneric();
+       if (TC > 0) {
+           passarBECaCEC();
+           executeGeneric();
+       }
     }
 }
