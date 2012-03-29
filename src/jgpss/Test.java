@@ -18,6 +18,8 @@
  */
 package jgpss;
 
+import java.util.ArrayList;
+
 
 /**
  * A class representing the TEST block.
@@ -150,5 +152,39 @@ public class Test extends Bloc{
         this.C = C;
     }
     
-    
+    @Override
+    public Bloc execute(Xact tr) throws Exception {
+        Boolean condicio = false;
+        Float value = Float.parseFloat(A);
+        Float reference = Float.parseFloat(B);
+        
+        if (x.equals(E)) condicio = value == reference;
+        else if (x.equals(NE)) condicio = value != reference;
+        else if (x.equals(LE)) condicio = value <= reference;
+        else if (x.equals(GE)) condicio = value >= reference;
+        else if (x.equals(L)) condicio = value < reference;
+        else if (x.equals(G)) condicio = value > reference;
+        
+        if (C.equals("")) {
+            if (condicio) return nextBloc(tr);
+            else {
+                tr.setBlocked(true); //TODO aquí també s'ha de posar blocked??
+                return null;
+            }
+        }
+        else {
+            if (condicio) return nextBloc(tr);
+            else {
+                ArrayList<Bloc> blocs = getProces().getBlocs();
+                for (Bloc b : blocs) {
+                    if (b.getLabel().equals(C)) {
+                        tr.setBloc(b);
+                        return b;
+                    }
+                }
+            }
+        }
+        throw new Exception("No hi ha cap bloc amb label" + C + ".");
+    }
 }
+
