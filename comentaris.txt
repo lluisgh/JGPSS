@@ -10,3 +10,10 @@ Fer el tema de les Cues i els Servidors fer-ho amb un map en comptes d'una Array
 
 
 Implementar el GNA (generador de nombres aleatoris) --> va dir algo de buscar l'algorisme a la seva web
+
+
+Coses per fer:
+- Uniform()
+- Canviar el tipus de CEC i FEC
+- Testing
+- Transformar en map l'arraylist de servidor i cues
