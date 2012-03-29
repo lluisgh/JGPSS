@@ -61,23 +61,17 @@ public class Release extends Bloc{
     
      @Override
      public Bloc execute(Xact tr) throws Exception {
-         int i;
-         boolean trobat = false;
-         for (i = 0; (i < getModel().getServers().size()) && !trobat; ++i) {
-             Server ser = (Server) getModel().getServers().get(i);
-             if (ser.getNom().equals(A)){
-                 if (ser.getOcupat() == 1) {
+         if (getModel().getServers().containsKey(A)) {
+             Server ser = (Server) getModel().getServers().get(A);
+             if (ser.getOcupat() == 1) {
                      ser.setOcupat(0);
-                     getModel().getServers().set(i, ser);
                      tr.setBlocked(false);
-                     trobat = true;
-                 }
-                 else {
-                     throw new Exception("El servidor amb nom " + A + " no estˆ ocupat.");
-                 }
+             }
+             else {
+                 throw new Exception("El servidor amb nom " + A + " no estˆ ocupat.");
              }
          }
-         if (!trobat) {
+         else {
              throw new Exception("El servidor amb nom " + A + " no existeix.");
          }
          return nextBloc(tr);

@@ -62,32 +62,19 @@ public class Seize extends Bloc {
      
      @Override
      public Bloc execute(Xact tr) {
-         Boolean trobat = false;
-         int i;
-         int pos = 0;
-         for (i = 0; (i < getModel().getServers().size()) && !trobat; ++i) {
-             Server ser = (Server) getModel().getServers().get(i);
-             if (ser.getNom().equals(A)){
-                 trobat = true;
-                 pos = i;
-             }
-         }
-         if (!trobat) { //El servidor Žs nou, per tant, el creo i l'afegeixo a l'Arraylist
-             Server ser = new Server(A, 1);
-             getModel().getServers().add(ser);
-             //la Xact que ha entrat al Seize continua al segŸent bloc
-             return nextBloc(tr);
-         }
-         else { //El servidor existeix
-             Server ser = (Server) getModel().getServers().get(pos);
+         if (getModel().getServers().containsKey(A)) {
+             Server ser = (Server) getModel().getServers().get(A);
              if (ser.getOcupat() == 0) { //Si esta desocupat, l'ocupem i anem al seguent bloc
                  ser.setOcupat(1);
-                 getModel().getServers().set(pos, ser);
                  return nextBloc(tr);
              }
-             else { //Falta fer quan el servidor esta ocupat... Ni idea
+             else {
                  tr.setBlocked(true);
              }
+         }
+         else {
+             Server ser = new Server(A, 1);
+             getModel().getServers().put(A, ser);
          }
          return null;
      }
