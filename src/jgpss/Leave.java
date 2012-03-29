@@ -84,18 +84,25 @@ public class Leave extends Bloc{
     @Override
     //TODO comentar
     public Bloc execute(Xact tr) throws Exception {
-        if (getModel().getStorages().containsKey(A)) {
-            Storage s = (Storage) getModel().getStorages().get(A);
-            Map o = s.getOcupants();
-            Integer auxID = tr.getID();
-            if (o.containsKey(auxID)) {
-                Integer ocs = (Integer) o.get(auxID);
-                if (ocs >= B) o.put(tr.getID(), ocs - B);
+        if (getModel().getStorages().containsKey(A)) {              //Si existeix l'Storage A
+            Storage s = (Storage) getModel().getStorages().get(A);  //Obtenim l'Storage A
+            Map o = s.getOcupants();                                //Obtenim el map que guarda quines transaccions estan ocupant el servidor
+            Integer auxID = tr.getID();                             //Obtenim l'ID de la transacció.
+            if (o.containsKey(auxID)) {                             //Si la transacció està dins el map d'ocupants:
+                Integer ocs = (Integer) o.get(auxID);               //Obtenim el nombre d'instàncies del servidor que té capturades la transacció (ocs).
+                if (B <= ocs) {                                     //Si el nombre d'instàncies que volem alliberar és menor que ocs:
+                    if (B == ocs) o.remove(tr.getID());             //Si estem alliberant totes les insàncies que ocupava tr, l'eliminem del map d'ocupants,
+                    else o.put(tr.getID(), ocs - B));               //sinó restem B al nombre d'instàncies ocupades per tr al map d'ocuopants.    
+                    s.setLliures(s.getLliures() + B);               //Incrementem en B el nombre d'instàncies lliures del servidor. 
+                }
+                //Si el nombre d'instàncies que volem alliberar és major que les que havíem ocupat, llancem una excepció.
                 else throw new Exception("No hi ha " + B + "instàncies del servidor capturades per la transacció actual.");
             }
+            //Si la transacció no havia capturat cap instància del servidor i, per tant, no es troba al map d'ocupants d'aquest; llancem una excpeció.
             else throw new Exception("La transacció actual no ha capturat cap instància del servidor.");
         }
-        return nextBloc(tr);
+        
+        return nextBloc(tr); //Retornem el següent bloc.
     }
     
 }
