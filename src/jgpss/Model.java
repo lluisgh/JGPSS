@@ -41,8 +41,10 @@ public class Model implements Serializable {
     //map containing the storages.
     private Map storages;
     //Future and Current Event List.
-    private ArrayList CEC;
-    private ArrayList FEC;
+    private PriorityQueue<Xact> CEC;
+    private PriorityQueue<Xact> FEC;
+    //Blocked Event Chain
+    private PriorityQueue<Xact> BEC;
     //array amb els servidors
     private Map servers;
     //array amb les cues
@@ -75,8 +77,11 @@ public class Model implements Serializable {
         //inicialitzem a una array buida ja que no tenim encara processos
         this.setProces(new ArrayList());
         this.setStorages(new HashMap());
-        CEC=new ArrayList();
-        FEC=new ArrayList();
+        Comparator<Xact> CECCmp = new PriorityComparator();
+        Comparator<Xact> FECCmp = new TimeComparator();
+        CEC = new PriorityQueue<Xact>(10, CECCmp);
+        FEC = new PriorityQueue<Xact>(10, FECCmp);
+        BEC = new PriorityQueue<Xact>();
         this.setServers(new HashMap());
     }
 
@@ -84,7 +89,7 @@ public class Model implements Serializable {
      * To obtaint the CEC.
      * @return the CEC.
      */
-    public ArrayList getCEC() {
+    public PriorityQueue<Xact> getCEC() {
         return CEC;
     }
 
@@ -92,10 +97,19 @@ public class Model implements Serializable {
      * To obtain the FEC.
      * @return
      */
-    public ArrayList getFEC() {
+    public PriorityQueue<Xact> getFEC() {
         return FEC;
     }
 
+    /**
+     * To obtain the BEC.
+     * @return
+     */
+    public PriorityQueue<Xact> getBEC() {
+        return BEC;
+    }
+
+    
     /**
      * To obtain the processes (now an arraylist).
      * @return
@@ -285,6 +299,7 @@ public class Model implements Serializable {
      * To execute a single step of the simulation model.
      * Executes untin a new CLOCK UPDATE PHASE.
      */
+    @SuppressWarnings("empty-statement")
     void executeStep() {
         Xact xact;
         //Motor central de simulació.
