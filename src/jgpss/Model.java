@@ -227,7 +227,7 @@ public class Model implements Serializable {
      * To execute the simulation model.
      * @param b if true we execute the simulation step by step.
      */
-    void execute(boolean b) {
+    void execute(boolean b) throws Exception {
         relativeClock=0;
         absoluteClock=0;
         InitializeGenerateBocs();
@@ -242,7 +242,7 @@ public class Model implements Serializable {
      * i posar-ho tan a executeAll com a executeStep.
      */
     
-private void execute() throws Exception {
+private void executeGeneric() throws Exception {
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
@@ -253,21 +253,15 @@ private void execute() throws Exception {
     boolean excepcio = false;
     Xact xact;    
     while (!CEC.isEmpty() && TC > 0) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
-        xact = CEC.poll(); //Agafem la primera
-        //Moure aquesta xact el maxim que es pugui
-        while (xact.getBloc().execute(xact) != null);
+        xact = CEC.poll(); //Agafem la primera i la treiem de la CEC
+        while (xact.getBloc().execute(xact) != null); //Moure aquesta xact el maxim que es pugui
         if (xact.getBlocked()) {
+            
+            
             //TODO canviar això per posar a la blocked etc
-        }
         
         
-/*        if (TC <= 0) {
-            System.out.println("TC igual o menys de 0");
-            acaba = true;
-            break;
-        }
-         * 
-         */
+        }    
     }
     if (TC <= 0) {
         xact = FEC.poll();
@@ -279,7 +273,7 @@ private void execute() throws Exception {
     }
 
     else {
-        System.out.println("TC igual o menys de 0");
+        System.out.println("TC major o igual que 0");
     }
 }
     
@@ -288,7 +282,7 @@ private void execute() throws Exception {
      */
     void executeAll() throws Exception {
         //Simulation engine loop.
-        while (TC > 0) execute();
+        while (TC > 0) executeGeneric();
         System.out.println("END");        
     }
 
@@ -298,6 +292,6 @@ private void execute() throws Exception {
      */
     @SuppressWarnings("empty-statement")
     void executeStep() throws Exception {
-       if (TC > 0) execute();
+       if (TC > 0) executeGeneric();
     }
 }
