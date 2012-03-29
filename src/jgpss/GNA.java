@@ -45,7 +45,7 @@ public class GNA {
         java.util.Random rnd=new java.util.Random();
         Float result =  rnd.nextFloat();
         result *= B*2;
-        result -= B/2;
+        result -= B;
         result += A;
         return result;
     }
