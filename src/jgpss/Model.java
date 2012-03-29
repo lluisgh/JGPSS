@@ -242,7 +242,7 @@ public class Model implements Serializable {
      * i posar-ho tan a executeAll com a executeStep.
      */
     
-private void execute() {
+private void execute() throws Exception {
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
@@ -254,14 +254,9 @@ private void execute() {
     Xact xact;    
     while (!CEC.isEmpty() && TC > 0) {//Mentre hi hagi transaccions a la CEC, les fem avanar tan com podem
         xact = CEC.poll(); //Agafem la primera
-        try {
-            //Moure aquesta xact el maxim que es pugui
-            while (xact.getBloc().execute(xact) != null);
-        } catch (Exception ex) {
-            excepcio = true;
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (!excepcio && xact.getBlocked()) {
+        //Moure aquesta xact el maxim que es pugui
+        while (xact.getBloc().execute(xact) != null);
+        if (xact.getBlocked()) {
             //TODO canviar aix˜ per posar a la blocked etc
         }
         
@@ -278,7 +273,7 @@ private void execute() {
         xact = FEC.poll();
         relativeClock = xact.getMoveTime();
         CEC.add(xact);
-        while ((!FEC.isEmpty() && ((Xact) FEC.poll()).getMoveTime() == relativeClock)) {
+        while ((!FEC.isEmpty() && (FEC.poll()).getMoveTime() == relativeClock)) {
             CEC.add(FEC.poll());
         }
     }
@@ -291,7 +286,7 @@ private void execute() {
     /**
      * To execute the simulation model.
      */
-    void executeAll() {
+    void executeAll() throws Exception {
         //Simulation engine loop.
         while (TC > 0) execute();
         System.out.println("END");        
@@ -302,7 +297,7 @@ private void execute() {
      * Executes untin a new CLOCK UPDATE PHASE.
      */
     @SuppressWarnings("empty-statement")
-    void executeStep() {
+    void executeStep() throws Exception {
        if (TC > 0) execute();
     }
 }
