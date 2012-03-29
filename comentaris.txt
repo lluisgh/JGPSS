@@ -16,5 +16,4 @@ Coses per fer:
 - Uniform()
 - Canviar el tipus de CEC i FEC
 - Testing
-- Transformar en map l'arraylist de servidor i cues
 - Comentar
