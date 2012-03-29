@@ -155,35 +155,42 @@ public class Test extends Bloc{
     @Override
     public Bloc execute(Xact tr) throws Exception {
         Boolean condicio = false;
+        
+        //TODO això sobra, SNAs
         Float value = Float.parseFloat(A);
         Float reference = Float.parseFloat(B);
         
-        if (x.equals(E)) condicio = value == reference;
+        /**
+         * En cada tipus de condició, s'avalua aquesta i es guarda al booleà condició
+         */
+        if (x.equals(E)) condicio = value == reference;         
         else if (x.equals(NE)) condicio = value != reference;
         else if (x.equals(LE)) condicio = value <= reference;
         else if (x.equals(GE)) condicio = value >= reference;
         else if (x.equals(L)) condicio = value < reference;
         else if (x.equals(G)) condicio = value > reference;
         
-        if (C.equals("")) {
-            if (condicio) return nextBloc(tr);
-            else {
-                tr.setBlocked(true); //TODO aquí també s'ha de posar blocked??
-                return null;
+        
+        if (C.equals("")) {                     //Com no s'ha especficat l'operand C, el mode de treball és el condicional.
+            if (condicio) return nextBloc(tr);  //Si és compleix la condició, avança al següent bloc,
+            else {                              //sinó:
+                tr.setBlocked(true);            //indiquem que la transacció està bloquejada
+                return null;                    //retornem null
             }
         }
-        else {
-            if (condicio) return nextBloc(tr);
-            else {
-                ArrayList<Bloc> blocs = getProces().getBlocs();
-                for (Bloc b : blocs) {
-                    if (b.getLabel().equals(C)) {
-                        tr.setBloc(b);
-                        return b;
+        else {                                  // Sí s'ha especificat C.
+            if (condicio) return nextBloc(tr);  //Si és compleix la condició, avança al següent bloc,
+            else {                              //sinó:
+                ArrayList<Bloc> blocs = getProces().getBlocs(); //obtenim tots els blocs
+                for (Bloc b : blocs) {          //iterem sobre els blocs
+                    if (b.getLabel().equals(C)) {   //si és el bloc que busquem:
+                        tr.setBloc(b);          //el posem com a bloc actual de tr
+                        return b;               //i el retornem.
                     }
                 }
             }
         }
+        //Si s'ha arribat a aquesta línia vol dir que no hi ha cap bloc amb l'etiqueta C i llencem l'excepció.
         throw new Exception("No hi ha cap bloc amb label" + C + ".");
     }
 }

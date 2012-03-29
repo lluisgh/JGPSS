@@ -163,15 +163,16 @@ public class Transfer extends Bloc{
     
     @Override
     public Bloc execute(Xact tr) throws Exception {
-        if (A.equals(SNA)) {
-            ArrayList<Bloc> blocs = getProces().getBlocs();
-            for (Bloc b : blocs) {
-                if (b.getLabel().equals(B)) {
-                    tr.setBloc(b);
-                    return b;
+        if (A.equals(SNA)) {                    //Si el Transfer Žs del tipus Nul (l'œnic implementat).
+            ArrayList<Bloc> blocs = getProces().getBlocs(); //Obtenim tots els blocs.
+            for (Bloc b : blocs) {              //Recorregut per tots els blocs.
+                if (b.getLabel().equals(B)) {   //Si l'etiqueta del bloc b Žs la del bloc que volem:
+                    tr.setBloc(b);              //Posem aquest bloc com el bloc actual de la transacci—.     
+                    return b;                   //Retornem aquest bloc.
                 }
             }
         }
+        //Si s'ha arribat fins aqu’ vol dir que no hi ha cap bloc amb l'etiqueta B
         throw new Exception("No existeix cap bloc amb l'etiqueta " + B + ".");
     }
 }

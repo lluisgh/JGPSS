@@ -81,20 +81,21 @@ public class Enter extends Bloc {
     
     @Override
     public Bloc execute(Xact tr) throws Exception {
-        if (getModel().getStorages().containsKey(A)) {
-            Storage s = (Storage) getModel().getStorages().get(A);
-            if (s.getLliures() >= B) {
-                s.setLliures(s.getLliures() - B);
-                Map o = s.getOcupants();
-                if (o.containsKey(tr.getID())) o.put(tr.getID(), o.get(tr.getID() + B));
-                else s.getOcupants().put(tr.getID(), B);
+        if (getModel().getStorages().containsKey(A)) {              //Si existeix l'Storage A
+            Storage s = (Storage) getModel().getStorages().get(A);  //Obtenim l'Storage A
+            if (s.getLliures() >= B) {                              //Si hi ha prou instàncies del servidor A disponibles
+                s.setLliures(s.getLliures() - B);                   //El nombre d'instàncies lliures es redueix en B.
+                Map o = s.getOcupants();                            //Obtenim el map que guarda quines transaccions estan ocupant el servidor
+                if (o.containsKey(tr.getID())) o.put(tr.getID(), o.get(tr.getID() + B)); //Si la transacció actual es troba al map, incrementem en B
+                                                                                         //el nombre d'instàncies del servidor ocupades per aquesta
+                else s.getOcupants().put(tr.getID(), B);            //Sinó, afegim la transacció al map d'ocupant amb B instàncies ocupadem
             }
-            else {
-                tr.setBlocked(true);
-                return null;
+            else {                                                  //Si no hi ha prou instàncies lliures del servidor A
+                tr.setBlocked(true);                                //Posem la transacció a blocked.
+                return null;                                        //Retornem null
             }
         }
-        throw new Exception("No existeix cap Storage de nom " + A + ".");
+        throw new Exception("No existeix cap Storage de nom " + A + "."); //Si no existeix l'Storage A, es llença la corresponent excepció
     }
     
 }

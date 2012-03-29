@@ -82,6 +82,7 @@ public class Leave extends Bloc{
     }
     
     @Override
+    //TODO comentar
     public Bloc execute(Xact tr) throws Exception {
         if (getModel().getStorages().containsKey(A)) {
             Storage s = (Storage) getModel().getStorages().get(A);
