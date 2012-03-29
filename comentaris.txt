@@ -17,3 +17,4 @@ Coses per fer:
 - Canviar el tipus de CEC i FEC
 - Testing
 - Transformar en map l'arraylist de servidor i cues
+- Comentar
