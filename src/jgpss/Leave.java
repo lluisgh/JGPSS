@@ -92,7 +92,7 @@ public class Leave extends Bloc{
                 Integer ocs = (Integer) o.get(auxID);               //Obtenim el nombre d'instàncies del servidor que té capturades la transacció (ocs).
                 if (B <= ocs) {                                     //Si el nombre d'instàncies que volem alliberar és menor que ocs:
                     if (B == ocs) o.remove(tr.getID());             //Si estem alliberant totes les insàncies que ocupava tr, l'eliminem del map d'ocupants,
-                    else o.put(tr.getID(), ocs - B));               //sinó restem B al nombre d'instàncies ocupades per tr al map d'ocuopants.    
+                    else o.put(tr.getID(), ocs - B);               //sinó restem B al nombre d'instàncies ocupades per tr al map d'ocuopants.    
                     s.setLliures(s.getLliures() + B);               //Incrementem en B el nombre d'instàncies lliures del servidor. 
                 }
                 //Si el nombre d'instàncies que volem alliberar és major que les que havíem ocupat, llancem una excepció.

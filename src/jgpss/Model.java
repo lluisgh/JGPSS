@@ -307,9 +307,8 @@ public class Model implements Serializable {
         if (TC > 0) {
             int i = 0;
             boolean excepcio = false;
-            while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
-                xact = (Xact) CEC.get(i); //Agafem la primera
-                CEC.remove(i); 
+            while (!CEC.isEmpty()) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+                xact = CEC.poll(); //Agafem la primera
                 try {
                     //Moure aquesta xact el maxim que es pugui
                     while (xact.getBloc().execute(xact) != null);
@@ -318,7 +317,7 @@ public class Model implements Serializable {
                     Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (!excepcio && xact.getBlocked()) {
-                    ++i;
+                    ++i; //TODO canviar això per posar a la blocked etc
                 }
                 if (TC <= 0) {
                     System.out.println("TC igual o menys de 0");
@@ -327,7 +326,7 @@ public class Model implements Serializable {
                 }
             }
             if (!acaba) {
-                xact = (Xact) FEC.get(0);
+                xact = FEC.poll();
                 relativeClock = xact.getMoveTime();
                 CEC.add(i, xact);
                 ++i;
