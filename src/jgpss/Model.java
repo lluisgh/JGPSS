@@ -21,6 +21,8 @@ package jgpss;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A class representing the model elements.
@@ -236,12 +238,18 @@ public class Model implements Serializable {
         while (TC > 0) {
             //SCAN PHASE
             int i = 0;
+            boolean excepcio = false;
             while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
                 xact = (Xact) CEC.get(i); //Agafem la primera
                 CEC.remove(i); 
-                //Moure aquesta xact el maxim que es pugui
-                while (xact.getBloc().execute(xact) != null);
-                if (xact.getBlocked()) {
+                try {
+                    //Moure aquesta xact el maxim que es pugui
+                    while (xact.getBloc().execute(xact) != null);
+                } catch (Exception ex) {
+                    excepcio = true;
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (!excepcio && xact.getBlocked()) {
                     ++i;
                 }
                 if (TC <= 0) {
@@ -283,13 +291,18 @@ public class Model implements Serializable {
         Boolean acaba = false;
         if (TC > 0) {
             int i = 0;
-             while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+            boolean excepcio = false;
+            while (i != CEC.size()) { //Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
                 xact = (Xact) CEC.get(i); //Agafem la primera
                 CEC.remove(i); 
-                //Moure aquesta xact el maxim que es pugui
-                while (xact.getBloc().execute(xact) != null) {
+                try {
+                    //Moure aquesta xact el maxim que es pugui
+                    while (xact.getBloc().execute(xact) != null);
+                } catch (Exception ex) {
+                    excepcio = true;
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (xact.getBlocked()) {
+                if (!excepcio && xact.getBlocked()) {
                     ++i;
                 }
                 if (TC <= 0) {
@@ -316,6 +329,9 @@ public class Model implements Serializable {
                 //TODO 5: Move the Xacts of the FEC to the CEC.
                 //TODO 6: Goto TODO 1.
             }
-        }    
+        } 
+        else {
+            System.out.println("TC igual o menys de 0");
+        }
     }
 }
