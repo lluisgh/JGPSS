@@ -44,9 +44,9 @@ public class Model implements Serializable {
     private ArrayList CEC;
     private ArrayList FEC;
     //array amb els servidors
-    private ArrayList servers;
+    private Map servers;
     //array amb les cues
-    private ArrayList cues;
+    private Map cues;
     /**
      * The transaction counter.
      */
@@ -77,7 +77,7 @@ public class Model implements Serializable {
         this.setStorages(new HashMap());
         CEC=new ArrayList();
         FEC=new ArrayList();
-        servers = new ArrayList();
+        this.setServers(new HashMap());
     }
 
     /**
@@ -148,7 +148,7 @@ public class Model implements Serializable {
      * To obtain the array list containing the SERVERS.
      * @return the arraylist.
      */
-    public ArrayList getServers() {
+    public Map getServers() {
         return servers;
     }
 
@@ -156,7 +156,7 @@ public class Model implements Serializable {
      * To set the array list containing the SERVERS.
      * @param servers the new arraylist.
      */
-    public void setServers(ArrayList servers) {
+    public void setServers(HashMap servers) {
         this.servers = servers;
     }
     
@@ -164,7 +164,7 @@ public class Model implements Serializable {
      * To obtain the array list containing the CUES.
      * @return the arraylist.
      */
-    public ArrayList getCues() {
+    public Map getCues() {
         return cues;
     }
 
@@ -172,7 +172,7 @@ public class Model implements Serializable {
      * To set the array list containing the CUES.
      * @param cues the new arraylist.
      */
-    public void setCues(ArrayList cues) {
+    public void setCues(HashMap cues) {
         this.cues = cues;
     }
     
