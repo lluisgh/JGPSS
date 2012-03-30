@@ -261,14 +261,14 @@ private void imprimirInfoFinal() {
     Iterator entries = cues.entrySet().iterator();
     while (entries.hasNext()) {
         Cua q = (Cua) ((Entry) entries.next()).getValue();
-        System.out.println(q.getNom() + ":" + " " + q.getNElem() + "transaccions.");
+        System.out.println(q.getNom() + ": " + q.getNElem() + "transaccions.");
     }
     
     System.out.println("Storages:");
     entries = storages.entrySet().iterator();
     while (entries.hasNext()) {
         Storage s = (Storage) ((Entry) entries.next()).getValue();
-        System.out.println(s.getNom() + ":" + " " + s.getOcupants().size()
+        System.out.println(s.getNom() + ": " + s.getOcupants().size()
                 + "transaccions amb un total de " + (s.getValor() - s.getLliures()) + "instàncies capturades.");
     }
 
@@ -276,7 +276,9 @@ private void imprimirInfoFinal() {
     entries = servers.entrySet().iterator();
     while (entries.hasNext()) {
         Server s = (Server) ((Entry) entries.next()).getValue();
-        System.out.println(s.getNom() + ":" + " " + q.getNElem() + "transaccions.");
+        System.out.print(s.getNom() + ": ");
+        if (s.getOcupat()) System.out.println("ocupat.");
+        else System.out.println("lliure.");
     }
 
     //TODO dir què hi ha en cada cua, storage i servidor. Bàsicament crec que és recórrer el map i imprimir el nom i la qtt de transaccions que té
