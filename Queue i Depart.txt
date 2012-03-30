@@ -1,0 +1,16 @@
+*
+* QuDe
+* Test de Queue i Depart
+*
+
+
+*
+* Proc
+*
+        Generate        3.0,1.0,0.0,0.0,0.0,0     ;<<--comment-->>
+        Queue           Cua,1     ;<<--comment-->>
+        Seize           Serv     ;<<--comment-->>
+        Advance         2.0,1.0     ;<<--comment-->>
+        Release         Serv     ;<<--comment-->>
+        Depart          Cua,1     ;<<--comment-->>
+        Terminate       1     ;<<--comment-->>
