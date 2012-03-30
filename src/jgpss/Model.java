@@ -83,6 +83,7 @@ public class Model implements Serializable {
         FEC = new PriorityQueue<Xact>(10, FECCmp);
         BEC = new LinkedList<Xact>();
         this.setServers(new HashMap());
+        this.setCues(new HashMap());
     }
 
     /**
