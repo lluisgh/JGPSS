@@ -239,6 +239,28 @@ private void passarBECaCEC() {
     while (!BEC.isEmpty()) CEC.add(BEC.poll());
 }
     
+
+
+
+private void imprimirInfoFinal() {
+    System.out.println("A la CEC hi ha " + CEC.size() + "transaccions.");
+    while (!CEC.isEmpty()) {
+        System.out.println("Transacció de la CEC que volia executar el bloc amb id " + CEC.poll().getBloc().getId());
+    }
+    System.out.println("A la FEC hi ha " + FEC.size() + "transaccions.");
+    while (!CEC.isEmpty()) {
+        System.out.println("Transacció de la FEC que volia executar el bloc amb id " + FEC.poll().getBloc().getId());
+    }
+    System.out.println("A la BEC hi ha " + BEC.size() + "transaccions.");
+    while (!CEC.isEmpty()) {
+        System.out.println("Transacció de la BEC que volia executar el bloc amb id " + BEC.poll().getBloc().getId());
+    }
+    System.out.println("Cues:");
+    //TODO dir què hi ha en cada cua, storage i servidor. Bàsicament crec que és recórrer el map i imprimir el nom i la qtt de transaccions que té
+}
+
+
+
     
     /* Aquí el que s'ha de fer és transformar la transparència 138 (que farà servir les dues següents a jgpss
      * i posar-ho tan a executeAll com a executeStep.
@@ -276,7 +298,7 @@ private void executeGeneric() throws Exception{
         }
     }
     else {
-        System.out.println("TC menor o igual que 0. Falta imprimir info guai");
+        imprimirInfoFinal();
     }
 }
     
