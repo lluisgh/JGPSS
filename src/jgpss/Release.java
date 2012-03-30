@@ -62,20 +62,20 @@ public class Release extends Bloc{
      @Override
      public Bloc execute(Xact tr) throws Exception {
          Server ser;
-         if (getModel().getServers().containsKey(A)) {
-             ser = (Server) getModel().getServers().get(A);
-             if (ser.getOcupat() == 1) {
-                     ser.setOcupat(0);
-                     tr.setBlocked(false);
+         if (getModel().getServers().containsKey(A)) { // Si existeix el servidor
+             ser = (Server) getModel().getServers().get(A); // L'agafem
+             if (ser.getOcupat() == 1) { // Si està ocupat 
+                     ser.setOcupat(0); //El desocupem 
+                     tr.setBlocked(false); //I desbloquegem la transacció
              }
-             else {
+             else { //Si no està ocupat, activem una excepció
                  throw new Exception("El servidor amb nom " + A + " no està ocupat.");
              }
          }
-         else {
+         else { //Si el servidor no existeix, activem una excepció
              throw new Exception("El servidor amb nom " + A + " no existeix.");
          }
-         System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar desocupat."); 
-         return nextBloc(tr);
+         System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar desocupat."); //Imprimim informació rellevant per saber l'estat final del servidor
+         return nextBloc(tr); // Retornem el següent bloc de la transacció
      }
 }

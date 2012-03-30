@@ -80,20 +80,20 @@ public class Depart extends Bloc{
     
      @Override
      public Bloc execute(Xact tr) throws Exception {
-         Cua cu;
-         if (getModel().getCues().containsKey(A)) {
-             cu = (Cua) getModel().getCues().get(A);
-             if ((cu.getNElem() - B) < 0) {
+         Cua cu; // Declarem una cua
+         if (getModel().getCues().containsKey(A)) { //Si la cua existeix 
+             cu = (Cua) getModel().getCues().get(A); //L'agafem 
+             if ((cu.getNElem() - B) < 0) { // Si no tŽ prous elements activem una excepci— dient-ho
                  throw new Exception("No hi ha prous elements a la cua amb nom " + A + '.');
              }
-             else {
+             else { // Si s’ que hi haprous elements, simplement restem la B al nombre d'elements que tinguŽs
                  cu.setNElem(cu.getNElem() - B);
              }
          }
-         else {
+         else { // Si la cua no existeix activem una excepci— dient-ho
              throw new Exception("La cua amb nom " + A + " no existeix.");
          }
-         System.out.println("Bloc Depart: NElem de la cua " + cu.getNom() + ": " + cu.getNElem()); 
-         return nextBloc(tr);
+         System.out.println("Bloc Depart: NElem de la cua " + cu.getNom() + ": " + cu.getNElem()); // Informaci— impresa per veure el seu funcionament i l'estat final de la cua
+         return nextBloc(tr); //retornem el segŸent bloc de la transacci—
      }
 }

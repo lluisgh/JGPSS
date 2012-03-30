@@ -81,17 +81,17 @@ public class Queue extends Bloc{
     
     @Override
      public Bloc execute(Xact tr) {
-        Cua cu;
-        if (getModel().getCues().containsKey(A)) {
-            cu = (Cua) getModel().getCues().get(A);
-            cu.setNElem((cu.getNElem() + B));
+        Cua cu; // declarem una cua
+        if (getModel().getCues().containsKey(A)) { // Si la cua ja existeix
+            cu = (Cua) getModel().getCues().get(A); // L'agafem
+            cu.setNElem((cu.getNElem() + B)); // i afegim B al nombre d'elements de la cua
         }
-        else {
-            cu = new Cua(A, B);
-            getModel().getCues().put(A, cu);
+        else { // Si la cua no existeix
+            cu = new Cua(A, B); // En creem una de nova
+            getModel().getCues().put(A, cu); // i l'afegim al map de cues
         }
-        System.out.println("Bloc Queue: NElem a la cua " + cu.getNom() + ": " + cu.getNElem()); 
-        return nextBloc(tr);
+        System.out.println("Bloc Queue: NElem a la cua " + cu.getNom() + ": " + cu.getNElem());  //Finalment imprimim una mica d'informació per saber l'estat final de la cua
+        return nextBloc(tr); // i retornem el següent bloc de la transacció
     }
     
 }
