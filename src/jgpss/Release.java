@@ -64,8 +64,8 @@ public class Release extends Bloc{
          Server ser;
          if (getModel().getServers().containsKey(A)) { // Si existeix el servidor
              ser = (Server) getModel().getServers().get(A); // L'agafem
-             if (ser.getOcupat() == 1) { // Si estˆ ocupat 
-                     ser.setOcupat(0); //El desocupem 
+             if (ser.getOcupat()) { // Si estˆ ocupat 
+                     ser.setOcupat(false); //El desocupem 
                      tr.setBlocked(false); //I desbloquegem la transacci—
              }
              else { //Si no estˆ ocupat, activem una excepci—

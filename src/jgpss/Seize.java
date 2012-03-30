@@ -65,8 +65,8 @@ public class Seize extends Bloc {
          Server ser;
          if (getModel().getServers().containsKey(A)) { //El server existeix
              ser = (Server) getModel().getServers().get(A);
-             if (ser.getOcupat() == 0) { //Si esta desocupat, l'ocupem
-                 ser.setOcupat(1);
+             if (!ser.getOcupat()) { //Si esta desocupat, l'ocupem
+                 ser.setOcupat(true);
                  System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar ocupat."); 
                  tr.setBlocked(false); // Ens assegurem que la transacció està marcada com a no bloquejada
                  return nextBloc(tr); // Retornem el següent bloc de la transacció
@@ -77,7 +77,7 @@ public class Seize extends Bloc {
              }
          }
          else { //El server no existeix, per tant, el creem i l'afegim al map de Servers
-             ser = new Server(A, 1);
+             ser = new Server(A, true);
              getModel().getServers().put(A, ser);
              tr.setBlocked(false);// Ens assegurem que la transacció està marcada com a no bloquejada
              System.out.println("Bloc Release: El servidor " + ser.getNom() + " es crea i passa a estar ocupat.");

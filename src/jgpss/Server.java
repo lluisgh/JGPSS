@@ -12,7 +12,7 @@ public class Server {
     //nom del servidor
     private String nom;
     //si esta ocupat val 1, si no, 0
-    private int ocupat;
+    private Boolean ocupat;
     
     /**
      * Creadora de la classe
@@ -20,7 +20,7 @@ public class Server {
      * @param ocupat Estat del nou servidor (1: ocupat; 0: desocupat)
      */
     
-    public Server (String nom, int ocupat) {
+    public Server (String nom, Boolean ocupat) {
         this.nom = nom;
         this.ocupat = ocupat;
     }
@@ -47,7 +47,7 @@ public class Server {
      * @return L'estat actual del servidor
      */
     
-    public int getOcupat() {
+    public Boolean getOcupat() {
         return ocupat;
     }
     
@@ -56,7 +56,7 @@ public class Server {
      * @param ocupat El nou estat del servidor
      */
     
-    public void setOcupat(int ocupat) {
+    public void setOcupat(Boolean ocupat) {
         this.ocupat = ocupat;
     }
 }
