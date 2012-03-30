@@ -27,6 +27,7 @@ package jgpss;
 */
 import java.util.*;
 import java.io.*;
+import java.util.Map.Entry;
 
 /**
 * Clase que escribe y lee de disco objetos serializables.
@@ -133,17 +134,18 @@ public class GestorDeDisco
    
        //escrriure els storages
        textModel.append(Constants.saltoLinea);
-       Map storages= model.getStorages();
        Storage st;
-       for(int j=0;j<storages.size();j++){
-           st=(Storage)storages.get(j);
+        Iterator entries = model.getStorages().entrySet().iterator();
+        while (entries.hasNext()){
+           st = (Storage) ((Entry) entries.next()).getValue();
            textModel.append(Constants.saltoLinea);
            textModel.append(st.getNom());
            textModel.append(Constants.espacio);
            textModel.append(Constants.storages);
            textModel.append(Constants.espacio);
            textModel.append(st.getValor());
-       }
+        }
+        
       //escrire els processos
        
        ArrayList procesos = model.getProces();
