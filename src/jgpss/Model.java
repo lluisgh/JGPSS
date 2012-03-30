@@ -251,19 +251,23 @@ private void executeGeneric() throws Exception {
             //TODO 4: CLOCK UPDATE PHASE
             //TODO 5: Move the Xacts of the FEC to the CEC.
             //TODO 6: Goto TODO 1.
-    
+    boolean acaba = false;
     boolean excepcio = false;
     Xact xact;    
-    System.out.println("Comença el bucle d'executeAll"); 
-    while (!CEC.isEmpty() && TC > 0) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+    System.out.println("Comença el bucle d'executeGeneric amb TC: " + TC); 
+    while (!CEC.isEmpty()) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
         System.out.println("Volta del bucle de dins."); 
         xact = CEC.poll(); //Agafem la primera i la treiem de la CEC
         while (xact.getBloc().execute(xact) != null); //Moure aquesta xact el maxim que es pugui
+        if (TC <= 0) {
+            acaba = true;
+            break;
+        }
         if (xact.getBlocked()) {
             BEC.add(xact);
         }    
     }
-    if (TC > 0) {
+    if (!acaba) {
         if (!FEC.isEmpty()) {
             xact = FEC.poll();
             relativeClock = xact.getMoveTime();
@@ -284,6 +288,7 @@ private void executeGeneric() throws Exception {
     void executeAll() throws Exception {
         //Simulation engine loop.
         while (TC > 0) {
+            System.out.println("Volta del bucle de executeAll amb TC: " + TC); 
             passarBECaCEC();
             executeGeneric();
         }
