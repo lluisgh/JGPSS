@@ -63,21 +63,26 @@ public class Seize extends Bloc {
      @Override
      public Bloc execute(Xact tr) {
          Server ser;
-         if (getModel().getServers().containsKey(A)) {
+         if (getModel().getServers().containsKey(A)) { //El server existeix
              ser = (Server) getModel().getServers().get(A);
              if (ser.getOcupat() == 0) { //Si esta desocupat, l'ocupem i anem al seguent bloc
                  ser.setOcupat(1);
+                 System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar ocupat."); 
+                 tr.setBlocked(false);
                  return nextBloc(tr);
              }
-             else {
+             else { //El server estˆ ocupat, aix’ que bloquegem la transacci—
                  tr.setBlocked(true);
+                 System.out.println("Bloc Release: La Xact passa a estar bloquejada.");
              }
          }
-         else {
+         else { //El server no existeix, per tant, el creem i l'afegim al map de Servers
              ser = new Server(A, 1);
              getModel().getServers().put(A, ser);
+             tr.setBlocked(false);
+             System.out.println("Bloc Release: El servidor " + ser.getNom() + " es crea i passa a estar ocupat.");
+             return nextBloc(tr);
          }
-         System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar ocupat."); 
          return null;
      }
 }
