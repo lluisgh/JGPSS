@@ -254,28 +254,27 @@ private void executeGeneric() throws Exception {
     
     boolean excepcio = false;
     Xact xact;    
+    System.out.println("Comença el bucle d'executeAll"); 
     while (!CEC.isEmpty() && TC > 0) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
+        System.out.println("Volta del bucle de dins."); 
         xact = CEC.poll(); //Agafem la primera i la treiem de la CEC
         while (xact.getBloc().execute(xact) != null); //Moure aquesta xact el maxim que es pugui
         if (xact.getBlocked()) {
-            
             BEC.add(xact);
-            //TODO canviar això per posar a la blocked etc
-        
-        
         }    
     }
-    if (TC <= 0) {
-        xact = FEC.poll();
-        relativeClock = xact.getMoveTime();
-        CEC.add(xact);
-        while ((!FEC.isEmpty() && (FEC.poll()).getMoveTime() == relativeClock)) {
-            CEC.add(FEC.poll());
+    if (TC > 0) {
+        if (!FEC.isEmpty()) {
+            xact = FEC.poll();
+            relativeClock = xact.getMoveTime();
+            CEC.add(xact);
+            while ((!FEC.isEmpty() && (FEC.poll()).getMoveTime() == relativeClock)) {
+                CEC.add(FEC.poll());
+            }
         }
     }
-
     else {
-        System.out.println("TC major o igual que 0");
+        System.out.println("TC menor o igual que 0");
     }
 }
     
