@@ -44,7 +44,7 @@ public class Model implements Serializable {
     private PriorityQueue<Xact> CEC;
     private PriorityQueue<Xact> FEC;
     //Blocked Event Chain
-    private PriorityQueue<Xact> BEC;
+    private LinkedList<Xact> BEC;
     //array amb els servidors
     private Map servers;
     //array amb les cues
@@ -81,7 +81,7 @@ public class Model implements Serializable {
         Comparator<Xact> FECCmp = new TimeComparator();
         CEC = new PriorityQueue<Xact>(10, CECCmp);
         FEC = new PriorityQueue<Xact>(10, FECCmp);
-        BEC = new PriorityQueue<Xact>();
+        BEC = new LinkedList<Xact>();
         this.setServers(new HashMap());
     }
 
@@ -105,7 +105,7 @@ public class Model implements Serializable {
      * To obtain the BEC.
      * @return
      */
-    public PriorityQueue<Xact> getBEC() {
+    public LinkedList<Xact> getBEC() {
         return BEC;
     }
 
