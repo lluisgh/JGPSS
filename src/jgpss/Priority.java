@@ -65,7 +65,10 @@ public class Priority extends Bloc{
     
     @Override
     public Bloc execute(Xact tr) {
+        System.out.println("Execute del bloc Priority.");
+        System.out.println("Priority prèvia: " + tr.getPriority() + ".");
         tr.setPriority(A);      //Se li assigna la nova prioritat al bloc.
+        System.out.println("Priority nova: " + tr.getPriority() + ".");
         return nextBloc(tr);    //Es retorna el següent bloc.
     }
 }
