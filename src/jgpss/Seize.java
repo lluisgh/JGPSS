@@ -62,8 +62,9 @@ public class Seize extends Bloc {
      
      @Override
      public Bloc execute(Xact tr) {
+         Server ser;
          if (getModel().getServers().containsKey(A)) {
-             Server ser = (Server) getModel().getServers().get(A);
+             ser = (Server) getModel().getServers().get(A);
              if (ser.getOcupat() == 0) { //Si esta desocupat, l'ocupem i anem al seguent bloc
                  ser.setOcupat(1);
                  return nextBloc(tr);
@@ -73,9 +74,10 @@ public class Seize extends Bloc {
              }
          }
          else {
-             Server ser = new Server(A, 1);
+             ser = new Server(A, 1);
              getModel().getServers().put(A, ser);
          }
+         System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar ocupat."); 
          return null;
      }
 }

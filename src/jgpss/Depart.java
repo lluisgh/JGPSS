@@ -80,8 +80,9 @@ public class Depart extends Bloc{
     
      @Override
      public Bloc execute(Xact tr) throws Exception {
+         Cua cu;
          if (getModel().getCues().containsKey(A)) {
-             Cua cu = (Cua) getModel().getCues().get(A);
+             cu = (Cua) getModel().getCues().get(A);
              if ((cu.getNElem() - B) < 0) {
                  throw new Exception("No hi ha prous elements a la cua amb nom " + A + '.');
              }
@@ -89,6 +90,10 @@ public class Depart extends Bloc{
                  cu.setNElem(cu.getNElem() - B);
              }
          }
+         else {
+             throw new Exception("La cua amb nom " + A + " no existeix.");
+         }
+         System.out.println("Bloc Depart: NElem de la cua " + cu.getNom() + ": " + cu.getNElem()); 
          return nextBloc(tr);
      }
 }

@@ -61,8 +61,9 @@ public class Release extends Bloc{
     
      @Override
      public Bloc execute(Xact tr) throws Exception {
+         Server ser;
          if (getModel().getServers().containsKey(A)) {
-             Server ser = (Server) getModel().getServers().get(A);
+             ser = (Server) getModel().getServers().get(A);
              if (ser.getOcupat() == 1) {
                      ser.setOcupat(0);
                      tr.setBlocked(false);
@@ -74,6 +75,7 @@ public class Release extends Bloc{
          else {
              throw new Exception("El servidor amb nom " + A + " no existeix.");
          }
+         System.out.println("Bloc Release: El servidor " + ser.getNom() + " passa a estar desocupat."); 
          return nextBloc(tr);
      }
 }

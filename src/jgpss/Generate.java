@@ -175,6 +175,7 @@ public class Generate extends Bloc{
             xact.setProces(getProces());
             xact.setCreatTime(getModel().relativeClock);
             xact.setPriority(E);
+            xact.setBlocked(false);
             //We use the F parameter to determine if the C parameter
             //is valid
             if (getModel().relativeClock == 0 && F > 0) {

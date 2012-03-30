@@ -90,6 +90,7 @@ public class Advance extends Bloc{
         tr.setMoveTime(getModel().relativeClock+getModel().MyRandom.Uniform(A, B));
         nextBloc(tr);
         getModel().getFEC().add(tr);
+        System.out.println("Bloc Advance"); 
         return null;
     }
 }

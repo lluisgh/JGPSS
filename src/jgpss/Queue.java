@@ -81,14 +81,16 @@ public class Queue extends Bloc{
     
     @Override
      public Bloc execute(Xact tr) {
+        Cua cu;
         if (getModel().getCues().containsKey(A)) {
-            Cua cu = (Cua) getModel().getCues().get(A);
+            cu = (Cua) getModel().getCues().get(A);
             cu.setNElem((cu.getNElem() + B));
         }
         else {
-            Cua cu = new Cua(A, B);
+            cu = new Cua(A, B);
             getModel().getCues().put(A, cu);
         }
+        System.out.println("Bloc Queue: NElem a la cua " + cu.getNom() + ": " + cu.getNElem()); 
         return nextBloc(tr);
     }
     

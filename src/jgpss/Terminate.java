@@ -62,6 +62,7 @@ public class Terminate extends Bloc {
     @Override
     public Bloc execute(Xact tr) {
         getModel().TC -= A;
+        System.out.println("Bloc Terminate"); 
         return null;
     }
     
