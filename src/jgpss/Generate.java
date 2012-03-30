@@ -187,7 +187,7 @@ public class Generate extends Bloc{
             xact.setID(getModel().idxact);
             getModel().getFEC().add(xact);
             creationLimitNumber--;
-            System.out.println("Generate DONE.");
+            System.out.println("Generate DONE. Amb creationLimit = " + creationLimitNumber);
         } else {
             System.out.println("Creation limit reached.");
         }

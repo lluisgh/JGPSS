@@ -227,7 +227,7 @@ public class Model implements Serializable {
      * To execute the simulation model.
      * @param b if true we execute the simulation step by step.
      */
-    void execute(boolean b) throws Exception {
+    void execute(boolean b) {
         relativeClock=0;
         absoluteClock=0;
         InitializeGenerateBocs();
@@ -244,7 +244,7 @@ private void passarBECaCEC() {
      * i posar-ho tan a executeAll com a executeStep.
      */
     
-private void executeGeneric() throws Exception {
+private void executeGeneric() throws Exception{
             //TODO 1: First XACT.
             //TODO 2: Move the XACT as far as we can.
             //TODO 3: Look for other NOW XACT.
@@ -285,12 +285,16 @@ private void executeGeneric() throws Exception {
     /**
      * To execute the simulation model.
      */
-    void executeAll() throws Exception {
+    void executeAll() {
         //Simulation engine loop.
         while (TC > 0) {
             System.out.println("Volta del bucle de executeAll amb TC: " + TC); 
             passarBECaCEC();
-            executeGeneric();
+            try {
+                executeGeneric();
+            } catch (Exception ex) {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         System.out.println("END");        
     }
@@ -300,10 +304,14 @@ private void executeGeneric() throws Exception {
      * Executes untin a new CLOCK UPDATE PHASE.
      */
     @SuppressWarnings("empty-statement")
-    void executeStep() throws Exception {
+    void executeStep(){
        if (TC > 0) {
            passarBECaCEC();
-           executeGeneric();
+            try {
+                executeGeneric();
+            } catch (Exception ex) {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
        }
     }
 }
