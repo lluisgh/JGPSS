@@ -449,7 +449,7 @@ public class ControladorInterfaz extends javax.swing.JFrame implements Serializa
     private void RunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunActionPerformed
 
         //TODO: you must complete the execution of this part of the code.
-        mostrarDialogo("Ok", "Cancel", "This optinon is not implemented. Refer the JGPSS manual.", "Warning");
+        //mostrarDialogo("Ok", "Cancel", "This optinon is not implemented. Refer the JGPSS manual.", "Warning");
         Model model = VarGlobals.model;
         if (model==null) return;
 
@@ -460,7 +460,7 @@ public class ControladorInterfaz extends javax.swing.JFrame implements Serializa
     private void ConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfigurationActionPerformed
         
         //TODO: you must complete the execution of this part of the code.
-        mostrarDialogo("Ok", "Cancel", "This optinon is not implemented. Refer the JGPSS manual.", "Warning");
+        //mostrarDialogo("Ok", "Cancel", "This optinon is not implemented. Refer the JGPSS manual.", "Warning");
 
         PantallaConfiguration Pant = new PantallaConfiguration(this, true);
         Pant.setLocationRelativeTo(this);
