@@ -151,7 +151,7 @@ public class Test extends Bloc{
     public void setC(String C) {
         this.C = C;
     }
-    
+    /*
     @Override
     public Bloc execute(Xact tr) throws Exception {
         Boolean condicio = false;
@@ -163,6 +163,7 @@ public class Test extends Bloc{
         /**
          * En cada tipus de condici—, s'avalua aquesta i es guarda al booleˆ condici—
          */
+    /*
         if (x.equals(E)) condicio = value == reference;         
         else if (x.equals(NE)) condicio = value != reference;
         else if (x.equals(LE)) condicio = value <= reference;
@@ -193,5 +194,7 @@ public class Test extends Bloc{
         //Si s'ha arribat a aquesta l’nia vol dir que no hi ha cap bloc amb l'etiqueta C i llencem l'excepci—.
         throw new Exception("No hi ha cap bloc amb label" + C + ".");
     }
+     * 
+     */
 }
 
