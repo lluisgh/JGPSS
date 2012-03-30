@@ -254,9 +254,7 @@ private void executeGeneric() throws Exception{
     boolean acaba = false;
     boolean excepcio = false;
     Xact xact;    
-    System.out.println("Comença el bucle d'executeGeneric amb TC: " + TC); 
     while (!CEC.isEmpty()) {//Mentre hi hagi transaccions a la CEC, les fem avançar tan com podem
-        System.out.println("Volta del bucle de dins."); 
         xact = CEC.poll(); //Agafem la primera i la treiem de la CEC
         while (xact.getBloc().execute(xact) != null); //Moure aquesta xact el maxim que es pugui
         if (TC <= 0) {
@@ -278,7 +276,7 @@ private void executeGeneric() throws Exception{
         }
     }
     else {
-        System.out.println("TC menor o igual que 0");
+        System.out.println("TC menor o igual que 0. Falta imprimir info guai");
     }
 }
     
