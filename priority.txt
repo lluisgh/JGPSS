@@ -1,0 +1,12 @@
+*
+* priority
+* Model per provar el bloc Priority.
+*
+
+
+*
+* main
+*
+        Generate        2.0,1.0,0.0,0.0,0.0,0     ;<<--comment-->>
+        Priority        4     ;<<--comment-->>
+        Terminate       1     ;<<--comment-->>

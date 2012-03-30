@@ -1,0 +1,15 @@
+*
+* EnterLeave
+* Model de prova per als blocs enter i leave
+*
+
+STFIVE STORAGE 5
+
+*
+* main
+*
+        Generate        2.0,1.0,0.0,0.0,0.0,0     ;<<--comment-->>
+        Enter           STFIVE,3     ;<<--comment-->>
+        Advance         1.0,1.0     ;<<--comment-->>
+        Leave           STFIVE,3     ;<<--comment-->>
+        Terminate       1     ;<<--comment-->>
