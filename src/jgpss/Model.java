@@ -21,6 +21,7 @@ package jgpss;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -257,6 +258,27 @@ private void imprimirInfoFinal() {
         System.out.println("Transacció de la BEC que volia executar el bloc amb id " + BEC.poll().getBloc().getId());
     }
     System.out.println("Cues:");
+    Iterator entries = cues.entrySet().iterator();
+    while (entries.hasNext()) {
+        Cua q = (Cua) ((Entry) entries.next()).getValue();
+        System.out.println(q.getNom() + ":" + " " + q.getNElem() + "transaccions.");
+    }
+    
+    System.out.println("Storages:");
+    entries = storages.entrySet().iterator();
+    while (entries.hasNext()) {
+        Storage s = (Storage) ((Entry) entries.next()).getValue();
+        System.out.println(s.getNom() + ":" + " " + s.getOcupants().size()
+                + "transaccions amb un total de " + (s.getValor() - s.getLliures()) + "instàncies capturades.");
+    }
+
+    System.out.println("Servidors:");
+    entries = servers.entrySet().iterator();
+    while (entries.hasNext()) {
+        Server s = (Server) ((Entry) entries.next()).getValue();
+        System.out.println(s.getNom() + ":" + " " + q.getNElem() + "transaccions.");
+    }
+
     //TODO dir què hi ha en cada cua, storage i servidor. Bàsicament crec que és recórrer el map i imprimir el nom i la qtt de transaccions que té
 }
 
