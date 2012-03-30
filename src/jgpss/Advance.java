@@ -87,10 +87,11 @@ public class Advance extends Bloc{
     @Override
     public Bloc execute(Xact tr) {
         //Adding a new transaction to the FEC.
+        System.out.println("Bloc Advance: el model te el relativeClock = " + getModel().relativeClock); 
         tr.setMoveTime(getModel().relativeClock+getModel().MyRandom.Uniform(A, B));
         nextBloc(tr);
         getModel().getFEC().add(tr);
-        System.out.println("Bloc Advance"); 
+        System.out.println("Bloc Advance: la Xact te MoveTime = " + tr.getMoveTime()); 
         return null;
     }
 }
