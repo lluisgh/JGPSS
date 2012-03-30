@@ -164,9 +164,11 @@ public class Transfer extends Bloc{
     @Override
     public Bloc execute(Xact tr) throws Exception {
         if (A.equals(SNA)) {                    //Si el Transfer és del tipus Nul (l'únic implementat).
+            System.out.println("Execute del bloc Transfer de tipus Nul.");
             ArrayList<Bloc> blocs = getProces().getBlocs(); //Obtenim tots els blocs.
             for (Bloc b : blocs) {              //Recorregut per tots els blocs.
                 if (b.getLabel().equals(B)) {   //Si l'etiqueta del bloc b és la del bloc que volem:
+                    System.out.println("S'obté el bloc amb l'etiqueta desitjada: " + b.getLabel());
                     tr.setBloc(b);              //Posem aquest bloc com el bloc actual de la transacció.     
                     return b;                   //Retornem aquest bloc.
                 }

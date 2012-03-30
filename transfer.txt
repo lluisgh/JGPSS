@@ -1,0 +1,13 @@
+*
+* transfer
+* Model per a provar el bloc Transfer
+*
+
+
+*
+* main
+*
+        Generate        2.0,1.0,0.0,0.0,0.0,0     ;<<--comment-->>
+        Transfer        Nul,FIN,,0     ;<<--comment-->>
+        Advance         1.0,1.0     ;<<--comment-->>
+FIN     Terminate       1     ;<<--comment-->>
