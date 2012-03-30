@@ -1,0 +1,12 @@
+*
+* GenAdvTer
+* Test de Generate, Advance i Terminate
+*
+
+
+*
+* Proc
+*
+        Generate        5.0,2.0,0.0,0.0,0.0,0     ;GENERATE
+        Advance         3.0,1.0     ;ADVANCE
+        Terminate       1     ;TERMINATE
