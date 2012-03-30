@@ -20,7 +20,6 @@
 package jgpss;
 
 import java.util.Map;
-import javax.sound.midi.SysexMessage;
 
 /**
  * A class representing the ENTER block.
@@ -94,6 +93,7 @@ public class Enter extends Bloc {
                 Map o = s.getOcupants();                            //Obtenim el map que guarda quines transaccions estan ocupant el servidor
                 if (o.containsKey(tr.getID())) o.put(tr.getID(), o.get(tr.getID() + B)); //Si la transacci— actual es troba al map, incrementem en B                                                                  //el nombre d'instˆncies del servidor ocupades per aquesta
                 else s.getOcupants().put(tr.getID(), B);            //Sin—, afegim la transacci— al map d'ocupant amb B instˆncies ocupadem
+                return nextBloc(tr);
             }
             else {                                                  //Si no hi ha prou instˆncies lliures del servidor A
                 System.out.println("No hi ha prou instˆncies lliures.");
