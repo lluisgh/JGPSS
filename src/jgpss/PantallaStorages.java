@@ -19,14 +19,8 @@
 
 package jgpss;
 
-import java.io.*;
 import java.util.*;
-import java.awt.*;
-import javax.swing.*;
-import java.net.URL;
-import javax.swing.event.*;
-import java.io.PrintStream;
-import java.lang.NumberFormatException;
+import java.util.Map.Entry;
 /**
  *
  * @author  M.Dolores
@@ -34,7 +28,7 @@ import java.lang.NumberFormatException;
 public class PantallaStorages extends javax.swing.JDialog {
     
     Storage storageAux=null;
-    int posStorage=-1;
+    String nomStorage = null;
     /** Creates new form PantallaStorages */
     public PantallaStorages(boolean verOK) {
         this.setModal(true); 
@@ -170,18 +164,19 @@ public class PantallaStorages extends javax.swing.JDialog {
     }//GEN-LAST:event_botoCanelActionPerformed
 
     private void botoSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoSaveActionPerformed
-
+        System.out.println("PantallaStorages: botoSaveActionPerformed");
       //  boolean tancarPantalla=true;
         try{
             if(!existeixStorage((String)comboStorages.getSelectedItem())){
-               storageAux=new Storage((String)comboStorages.getSelectedItem(),new Integer(TextValor.getText()).intValue());
-            VarGlobals.model.getStorages().put(storageAux.getNom(), storageAux);
-            botoOK.setEnabled(true);
-            rellenarCombo();
+                System.out.println("No existeix l'Storage.");
+                storageAux=new Storage((String)comboStorages.getSelectedItem(),new Integer(TextValor.getText()).intValue());
+                System.out.println("S'afegeix l'storage " + storageAux.getNom() + " de valor " + storageAux.getValor());
+                VarGlobals.model.getStorages().put(storageAux.getNom(), storageAux);
+                botoOK.setEnabled(true);
+                rellenarCombo();
             }
             else{
-            ((Storage)VarGlobals.model.getStorages().get(posStorage)).setValor(new Integer(TextValor.getText()).intValue());
-            
+                ((Storage)VarGlobals.model.getStorages().get(nomStorage)).setValor(new Integer(TextValor.getText()).intValue());
             }
         }
          catch(NumberFormatException nf){
@@ -221,20 +216,25 @@ private void generarPantallaError(String mensage){
     }//GEN-LAST:event_comboStoragesActionPerformed
     
     private void rellenarCombo(){
-     if(VarGlobals.model.getStorages().size()>0){
-     comboStorages.setModel(new javax.swing.DefaultComboBoxModel(agafarNomsStorages(VarGlobals.model.getStorages())));
-     comboStorages.setEnabled(true);
-     if(storageAux!=null)
-        comboStorages.setSelectedItem(storageAux.getNom());
-     }
+        System.out.println("rellenarCombo");
+        if(VarGlobals.model.getStorages().size()>0){
+            System.out.println("size storages > 0");
+            comboStorages.setModel(new javax.swing.DefaultComboBoxModel(agafarNomsStorages(VarGlobals.model.getStorages())));
+            comboStorages.setEnabled(true);
+            if(storageAux!=null) comboStorages.setSelectedItem(storageAux.getNom());
+        }
     }     
     
     private Vector agafarNomsStorages(Map mStorages){
+        System.out.println("agafarNomsStorages");
         Vector Resultados= new Vector();
         Storage st;
         Resultados.add("");
-        for(int i=0;i<mStorages.size();i++){
-            st = (Storage) mStorages.get(i);
+        int i = 0;
+        Iterator entries = mStorages.entrySet().iterator();
+        while (entries.hasNext()){
+            System.out.println("Iteraci— " + i + ".");
+            st = (Storage) ((Entry) entries.next()).getValue();
             Resultados.add(st.getNom());
         }
         return Resultados;
@@ -243,15 +243,16 @@ private void generarPantallaError(String mensage){
 private boolean existeixStorage(String titol){
     boolean b=false;
     Storage st;
-    for(int i=0; ((i<VarGlobals.model.getStorages().size())&&!b);i++){
-        st=(Storage)VarGlobals.model.getStorages().get(i);
+    Iterator entries = VarGlobals.model.getStorages().entrySet().iterator();
+    while (entries.hasNext() && !b) {
+        st = (Storage) ((Entry) entries.next()).getValue();
         if(st.getNom().equals(titol)){
-            storageAux=(Storage)VarGlobals.model.getStorages().get(i);
-            posStorage=i;
+            storageAux=st;
+            nomStorage=st.getNom();
             b=true;
         }
     }
-return b;
+    return b;
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TextValor;
