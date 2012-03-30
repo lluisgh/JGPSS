@@ -272,7 +272,7 @@ private void executeGeneric() throws Exception{
             xact = FEC.poll();
             relativeClock = xact.getMoveTime();
             CEC.add(xact);
-            while ((!FEC.isEmpty() && (FEC.poll()).getMoveTime() == relativeClock)) {
+            while ((!FEC.isEmpty() && (FEC.peek()).getMoveTime() == relativeClock)) {
                 CEC.add(FEC.poll());
             }
         }
