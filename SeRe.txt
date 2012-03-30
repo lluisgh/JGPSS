@@ -1,0 +1,14 @@
+*
+* SeizeRelease
+* Test de Seize i Release
+*
+
+
+*
+* Proc
+*
+        Generate        5.0,2.0,0.0,0.0,0.0,0     ;GENERATE
+        Seize           Serv     ;SEIZE
+        Advance         3.0,1.0     ;ADVANCE
+        Release         Serv     ;RELEASE
+        Terminate       1     ;TERMINATE
