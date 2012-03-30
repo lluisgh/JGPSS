@@ -84,13 +84,20 @@ public class Leave extends Bloc{
     @Override
     //TODO comentar
     public Bloc execute(Xact tr) throws Exception {
+        System.out.println("Execute del bloc Leave.");
+        System.out.println("Servidor: " + A);
+        System.out.println("Instàncies que es volen alliberar: " + B);
         if (getModel().getStorages().containsKey(A)) {              //Si existeix l'Storage A
             Storage s = (Storage) getModel().getStorages().get(A);  //Obtenim l'Storage A
+            System.out.println("Obtenim l'Storage + " + s.getNom() + ".");
             Map o = s.getOcupants();                                //Obtenim el map que guarda quines transaccions estan ocupant el servidor
             Integer auxID = tr.getID();                             //Obtenim l'ID de la transacció.
             if (o.containsKey(auxID)) {                             //Si la transacció està dins el map d'ocupants:
+                System.out.println("La transacció es troba entre els ocupants del servidor");
                 Integer ocs = (Integer) o.get(auxID);               //Obtenim el nombre d'instàncies del servidor que té capturades la transacció (ocs).
+                System.err.println("La transacció té " + ocs + "instàncies ocupades.");
                 if (B <= ocs) {                                     //Si el nombre d'instàncies que volem alliberar és menor que ocs:
+                    System.out.println("El nombre d'instàncies que volem alliberar és menor que el nombre d'instàncies que tenim ocupades.");
                     if (B == ocs) o.remove(tr.getID());             //Si estem alliberant totes les insàncies que ocupava tr, l'eliminem del map d'ocupants,
                     else o.put(tr.getID(), ocs - B);               //sinó restem B al nombre d'instàncies ocupades per tr al map d'ocuopants.    
                     s.setLliures(s.getLliures() + B);               //Incrementem en B el nombre d'instàncies lliures del servidor. 
