@@ -20,6 +20,7 @@
 package jgpss;
 
 import java.util.Map;
+import javax.sound.midi.SysexMessage;
 
 /**
  * A class representing the ENTER block.
@@ -81,16 +82,21 @@ public class Enter extends Bloc {
     
     @Override
     public Bloc execute(Xact tr) throws Exception {
+        System.out.println("Execute del bloc Enter.");
+        System.out.println("Servidor: " + A);
+        System.out.println("Instˆncies que es volen capturar: " + B);
         if (getModel().getStorages().containsKey(A)) {              //Si existeix l'Storage A
             Storage s = (Storage) getModel().getStorages().get(A);  //Obtenim l'Storage A
+            System.out.println("Obtenim l'Storage + " + s.getNom() + ".");
             if (s.getLliures() >= B) {                              //Si hi ha prou instˆncies del servidor A disponibles
+                System.out.println("Hi ha prou instˆncies lliures (" + s.getLliures() + ").");
                 s.setLliures(s.getLliures() - B);                   //El nombre d'instˆncies lliures es redueix en B.
                 Map o = s.getOcupants();                            //Obtenim el map que guarda quines transaccions estan ocupant el servidor
-                if (o.containsKey(tr.getID())) o.put(tr.getID(), o.get(tr.getID() + B)); //Si la transacci— actual es troba al map, incrementem en B
-                                                                                         //el nombre d'instˆncies del servidor ocupades per aquesta
+                if (o.containsKey(tr.getID())) o.put(tr.getID(), o.get(tr.getID() + B)); //Si la transacci— actual es troba al map, incrementem en B                                                                  //el nombre d'instˆncies del servidor ocupades per aquesta
                 else s.getOcupants().put(tr.getID(), B);            //Sin—, afegim la transacci— al map d'ocupant amb B instˆncies ocupadem
             }
             else {                                                  //Si no hi ha prou instˆncies lliures del servidor A
+                System.out.println("No hi ha prou instˆncies lliures.");
                 tr.setBlocked(true);                                //Posem la transacci— a blocked.
                 return null;                                        //Retornem null
             }
